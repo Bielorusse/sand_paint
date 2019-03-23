@@ -7,6 +7,6 @@ based on bresenham's line algorithm
 
 THIS IS JUST A SKETCHY VERSION, USE LATER VERSION OR V0.0.3
 
-added in this version:<br>
+added in this version:
   - added a loop in the "drawButton" onclick function: draws the same line again with increased
   coordinates
