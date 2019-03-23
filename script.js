@@ -185,6 +185,8 @@ function selectRandomPixels(inputCoordinates, n) {
     randomCoordinates : array containing n coordinates chosen randomly from the input array
   */
   var randomCoordinates = new Array(n);
+
+  var j;
   for (j = 0; j < n; j++) {
     randomCoordinates[j] =
       inputCoordinates[
@@ -212,35 +214,41 @@ function getInputParameters() {
 document.getElementById('drawButton').onclick = function() {
   getInputParameters();
 
-  var dx = x1 - x0;
-  var dy = y1 - y0;
+  var k;
+  for (k = 0; k < 100; k++) {
+    x0 = x0 + 1;
+    x1 = x1 + 1;
 
-  // case of a single point
-  if (dx == 0 && dy == 0) {
-    drawPixel(x0, y0, rPixel, gPixel, bPixel, aPixel);
-    updateCanvas();
-    return;
-  }
+    var dx = x1 - x0;
+    var dy = y1 - y0;
 
-  var octant = getOctant(dx, dy);
+    // case of a single point
+    if (dx == 0 && dy == 0) {
+      drawPixel(x0, y0, rPixel, gPixel, bPixel, aPixel);
+      updateCanvas();
+      return;
+    }
 
-  // obtaining coordinates of pixels forming line using bresenham's algorithm
-  pixelsCoordinates = getPixelsCoordsOfLine(x0, y0, x1, y1, octant);
+    var octant = getOctant(dx, dy);
 
-  // selecting random pixels along the line
-  pixelsCoordinates = selectRandomPixels(pixelsCoordinates, pixelsDensity);
+    // obtaining coordinates of pixels forming line using bresenham's algorithm
+    pixelsCoordinates = getPixelsCoordsOfLine(x0, y0, x1, y1, octant);
 
-  // drawing selected pixels
-  var j;
-  for (j = 0; j < pixelsCoordinates.length; j++) {
-    drawPixel(
-      pixelsCoordinates[j][0],
-      pixelsCoordinates[j][1],
-      rPixel,
-      gPixel,
-      bPixel,
-      aPixel
-    );
+    // selecting random pixels along the line
+    pixelsCoordinates = selectRandomPixels(pixelsCoordinates, pixelsDensity);
+
+    // drawing selected pixels
+    var j;
+    for (j = 0; j < pixelsCoordinates.length; j++) {
+      drawPixel(
+        pixelsCoordinates[j][0],
+        pixelsCoordinates[j][1],
+        rPixel,
+        gPixel,
+        bPixel,
+        aPixel
+      );
+    }
   }
 
   updateCanvas();
